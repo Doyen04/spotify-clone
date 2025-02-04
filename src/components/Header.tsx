@@ -41,7 +41,7 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
                     </button>
                 </div>
                 <div className="flex justify-between items-center gaps-x-4">
-                    <>
+                    {/* <> */}
                         <div>
                             <Button className="bg-transparent text-neutral-300 font-medium">
                                 Sign Up
@@ -52,9 +52,10 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
                                 Login Up
                             </Button>
                         </div>
-                    </>
+                    {/* </> */}
                 </div>
             </div>
+            {children}
         </div>
     )
 }
