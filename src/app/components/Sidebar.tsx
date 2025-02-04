@@ -5,6 +5,8 @@ import React, { useMemo } from "react";
 import Box from "./Box";
 import SidebarItem from "./SidebarItem";
 import Library from "./Library";
+import { HiHome} from "react-icons/hi";
+import { BiSearch } from "react-icons/bi";
 
 
 interface SidebarProps{
@@ -16,13 +18,13 @@ const Sidebar: React.FC<SidebarProps> = ({children})  => {
 
     const routes = useMemo(()=>[
         {
-            icon: '',
+            icon: HiHome,
             label: 'Home',
             active: pathname !== '/search',
             href: '/'
         },
         {
-            icon: '',
+            icon: BiSearch,
             label: 'Search',
             active: pathname === '/search',
             href: '/search'
