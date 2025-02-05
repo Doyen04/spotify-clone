@@ -25,18 +25,18 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
         <div className={twMerge(`h-fit bg-gradient-to-b from-emerald-800 p-6`, className)}>
             <div className="w-full mb-4 flex items-center justify-between">
                 <div className="hidden md:flex gap-x-2 items-center">
-                    <button onClick={() => router.back()} className="rounded-full bg-black flex items-center justify-center hover:opacity-75 transition">
+                    <button title="Go Back" onClick={() => router.back()} className="rounded-full bg-black flex items-center justify-center hover:opacity-75 transition">
                         <RxCaretLeft size={35} className="text-white" />
                     </button>
-                    <button onClick={() => router.forward()} className="rounded-full bg-black flex items-center justify-center hover:opacity-75 transition">
+                    <button title="Go Forward" onClick={() => router.forward()} className="rounded-full bg-black flex items-center justify-center hover:opacity-75 transition">
                         <RxCaretRight size={35} className="text-white" />
                     </button>
                 </div>
                 <div className="flex md:hidden gap-x-2 items-center">
-                    <button className="rounded-full p-2 bg-white flex items-center justify-center hover:opacity-75 transition">
+                    <button title="Home" className="rounded-full p-2 bg-white flex items-center justify-center hover:opacity-75 transition">
                         <HiHome size={20} className="text-black"/>
                     </button>
-                    <button className="rounded-full p-2 bg-white flex items-center justify-center hover:opacity-75 transition">
+                    <button title="Search" className="rounded-full p-2 bg-white flex items-center justify-center hover:opacity-75 transition">
                         <BiSearch size={20} className="text-black"/>
                     </button>
                 </div>
