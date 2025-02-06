@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Figtree, Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Sidebar from "../components/Sidebar";
+import SuperbaseProvider from "@/providers/SuperbaseProvider";
+import UserProvider from "@/providers/UserProvider";
 
 const fig = Figtree({
     subsets: ["latin"],
@@ -31,9 +33,14 @@ export default function RootLayout({
         <html lang="en">
             <body
                 className={`${fig.className} ${geistSans.variable} ${geistMono.variable} antialiased`}>
-                <Sidebar>
-                    {children}
-                </Sidebar>
+                <SuperbaseProvider>
+                    <UserProvider>
+                        <Sidebar>
+                            {children}
+                        </Sidebar>
+                    </UserProvider>
+                </SuperbaseProvider>
+
 
             </body>
         </html>
