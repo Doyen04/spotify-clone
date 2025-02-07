@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { FaPlay } from "react-icons/fa";
 import { twMerge } from "tailwind-merge"
+import React from "react";
 
 interface ListItemProps {
     image: string;

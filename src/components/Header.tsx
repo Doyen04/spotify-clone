@@ -6,6 +6,7 @@ import { HiHome } from "react-icons/hi"
 import { RxCaretLeft, RxCaretRight } from "react-icons/rx"
 import { twMerge } from "tailwind-merge"
 import Button from "./Button"
+import React from "react";
 
 
 

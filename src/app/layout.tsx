@@ -4,6 +4,8 @@ import "./globals.css";
 import Sidebar from "../components/Sidebar";
 import SuperbaseProvider from "@/providers/SuperbaseProvider";
 import UserProvider from "@/providers/UserProvider";
+import ModalProvider from "@/providers/ModalProvider";
+import React from "react";
 
 const fig = Figtree({
     subsets: ["latin"],
@@ -35,9 +37,10 @@ export default function RootLayout({
                 className={`${fig.className} ${geistSans.variable} ${geistMono.variable} antialiased`}>
                 <SuperbaseProvider>
                     <UserProvider>
-                        <Sidebar>
-                            {children}
-                        </Sidebar>
+                        <ModalProvider />
+                            <Sidebar>
+                                {children}
+                            </Sidebar>
                     </UserProvider>
                 </SuperbaseProvider>
 
