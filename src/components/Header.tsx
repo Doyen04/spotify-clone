@@ -7,6 +7,10 @@ import { RxCaretLeft, RxCaretRight } from "react-icons/rx"
 import { twMerge } from "tailwind-merge"
 import Button from "./Button"
 import React from "react";
+import useAuthModal from "@/hooks/useAuthModal"
+import { useUser } from "@/hooks/useUser"
+import { useSupabaseClient } from "@supabase/auth-helpers-react"
+import { FaUserAlt } from "react-icons/fa"
 
 
 
@@ -17,10 +21,19 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ children, className }) => {
+    const { onOpen } = useAuthModal()
     const router = useRouter()
 
-    const handleLogOut = () => {
-        ///
+    const supabaseClient = useSupabaseClient()
+    const { user } = useUser()
+
+    const handleLogOut = async () => {
+        const { error } = await supabaseClient.auth.signOut()
+
+        router.refresh()
+        if (error) {
+            console.error(error)
+        }
     }
     return (
         <div className={twMerge(`h-fit bg-gradient-to-b from-emerald-800 p-6`, className)}>
@@ -35,24 +48,39 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
                 </div>
                 <div className="flex md:hidden gap-x-2 items-center">
                     <button title="Home" className="rounded-full p-2 bg-white flex items-center justify-center hover:opacity-75 transition">
-                        <HiHome size={20} className="text-black"/>
+                        <HiHome size={20} className="text-black" />
                     </button>
                     <button title="Search" className="rounded-full p-2 bg-white flex items-center justify-center hover:opacity-75 transition">
-                        <BiSearch size={20} className="text-black"/>
+                        <BiSearch size={20} className="text-black" />
                     </button>
                 </div>
                 <div className="flex justify-between items-center gaps-x-4">
                     {/* <> */}
-                        <div>
-                            <Button className="bg-transparent text-neutral-300 font-medium">
-                                Sign Up
-                            </Button>
-                        </div>
-                        <div>
-                            <Button onClick={()=>{}} className="bg-white px-6 py-2">
-                                Login Up
-                            </Button>
-                        </div>
+                    {user ?
+                        (
+                            <div className="flex gap-x-4 items-center">
+                                <Button onClick={handleLogOut} className="bg-white px-6 py-2">
+                                    LogOut
+                                </Button>
+                                <Button onClick={() => { router.push('/account') }} className="bg-white">
+                                    <FaUserAlt />
+                                </Button>
+                            </div>
+                        ) : (
+                            <>
+                                <div>
+                                    <Button onClick={onOpen} className="bg-transparent text-neutral-300 font-medium">
+                                        Sign Up
+                                    </Button>
+                                </div>
+                                <div>
+                                    <Button onClick={onOpen} className="bg-white px-6 py-2">
+                                        Login Up
+                                    </Button>
+                                </div>
+                            </>
+                        )}
+
                     {/* </> */}
                 </div>
             </div>
