@@ -19,7 +19,7 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"],
+      "@/*": ["./src/*","./*"],
       //help fix error with react icon
       "react": [ "./node_modules/@types/react" ]
     }

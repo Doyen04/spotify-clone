@@ -9,9 +9,12 @@ import { TbPlaylist } from "react-icons/tb"
 const Library: React.FC = () => {
     const authModal = useAuthModal() 
     const uploadModal = useUploadModal();
-    const user = useUser() 
+    const {user} = useUser() 
     const onClick = () => {
+        console.log(!user, user, 99);
         if (!user) {
+            console.log(!user, user, 100);
+            
             return authModal.onOpen()
         }
        

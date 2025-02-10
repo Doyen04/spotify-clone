@@ -1,16 +1,20 @@
 "use client"
 
+import React from "react";
 import { useRouter } from "next/navigation"
+
 import { BiSearch } from "react-icons/bi"
 import { HiHome } from "react-icons/hi"
 import { RxCaretLeft, RxCaretRight } from "react-icons/rx"
+import { FaUserAlt } from "react-icons/fa"
+
 import { twMerge } from "tailwind-merge"
+
 import Button from "./Button"
-import React from "react";
 import useAuthModal from "@/hooks/useAuthModal"
 import { useUser } from "@/hooks/useUser"
+
 import { useSupabaseClient } from "@supabase/auth-helpers-react"
-import { FaUserAlt } from "react-icons/fa"
 
 
 
@@ -26,7 +30,7 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
 
     const supabaseClient = useSupabaseClient()
     const { user } = useUser()
-
+    
     const handleLogOut = async () => {
         const { error } = await supabaseClient.auth.signOut()
 
@@ -75,7 +79,7 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
                                 </div>
                                 <div>
                                     <Button onClick={onOpen} className="bg-white px-6 py-2">
-                                        Login Up
+                                        Login
                                     </Button>
                                 </div>
                             </>
