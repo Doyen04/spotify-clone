@@ -38,7 +38,7 @@ const UploadModal = () => {
         try {
             setIsLoading(true)
 
-            const imageFile = values.images?.[0]
+            const imageFile = values.image?.[0]
             const songFile = values.song?.[0]
 
             if (!imageFile && !songFile && !user) {
