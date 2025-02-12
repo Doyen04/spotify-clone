@@ -2,11 +2,14 @@
 
 import useAuthModal from "@/hooks/useAuthModal"
 import useUploadModal from "@/hooks/useUploadModal"
+
 import { useUser } from "@/hooks/useUser"
 import { Song } from "@/types"
+
 import { AiOutlinePlus } from "react-icons/ai"
 import { TbPlaylist } from "react-icons/tb"
 import MediaItem from "./MediaItem"
+import useOnPlay from "@/hooks/useOnPlay"
 
 interface LibraryProps{
     songs: Song[]
@@ -16,6 +19,8 @@ const Library: React.FC<LibraryProps> = ({songs}) => {
     const authModal = useAuthModal() 
     const uploadModal = useUploadModal();
     const {user} = useUser() 
+
+    const onplay = useOnPlay(songs)
     const onClick = () => {
         console.log(!user, user, 99);
         if (!user) {
