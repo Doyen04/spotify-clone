@@ -2,13 +2,18 @@
 
 import { Song } from "@/types";
 import React, { useState } from "react";
-import MediaItem from "./MediaItem";
-import LikeButton from "./LikeButton";
+
+
 import { BsPauseFill, BsPlayFill } from "react-icons/bs";
 import { AiFillStepBackward, AiFillStepForward } from "react-icons/ai";
 import { HiSpeakerWave, HiSpeakerXMark } from "react-icons/hi2";
+import useSound from 'use-sound'
+
+import MediaItem from "./MediaItem";
+import LikeButton from "./LikeButton";
 import Slider from "./Slider";
 import usePlayer from "@/hooks/usePlayer";
+
 
 interface PlayerContentProps {
     song: Song;
@@ -43,6 +48,8 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
         if (!previousSong) return player.setId(player.ids[player.ids.length - 1])
         player.setId(previousSong)
     }
+
+    const [] = useSound()
     return (
 
         <div className="grid grid-cols-2 md:grid-cols-3 h-full">
