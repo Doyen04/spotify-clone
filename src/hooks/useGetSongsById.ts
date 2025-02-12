@@ -20,7 +20,7 @@ const useGetSongsById = (id: string) => {
 
         const fetchSong = async () => {
             const { data, error } = await supabaseClient
-                .from('song')
+                .from('songs')
                 .select('*')
                 .eq('id', id)
                 .single()
@@ -32,7 +32,8 @@ const useGetSongsById = (id: string) => {
             setSong(data as Song)
             setIsLoading(false)
         }
-
+            
+            
         fetchSong()
     }, [id, supabaseClient])
 
