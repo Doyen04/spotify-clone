@@ -1,12 +1,16 @@
+import React from "react";
 import type { Metadata } from "next";
 import { Figtree, Geist, Geist_Mono } from "next/font/google";
+
 import "./globals.css";
-import Sidebar from "../components/Sidebar";
+
 import SuperbaseProvider from "@/providers/SuperbaseProvider";
 import UserProvider from "@/providers/UserProvider";
 import ModalProvider from "@/providers/ModalProvider";
-import React from "react";
 import getSongsByUserId from "@/actions/getSongsByUserId";
+
+import Player from "@/components/Player";
+import Sidebar from "../components/Sidebar";
 
 export const revalidate = 0;
 
@@ -45,6 +49,7 @@ export default async function RootLayout({
                             <Sidebar songs={userSongs}>
                                 {children}
                             </Sidebar>
+                            <Player />
                     </UserProvider>
                 </SuperbaseProvider>
 
