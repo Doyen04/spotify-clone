@@ -9,10 +9,9 @@ interface SidebarItemProps {
     label: string;
     active: boolean;
     href: string;
-    className?: string;
 }
 
-const SidebarItem: React.FC<SidebarItemProps> = ({ icon: Icon, label, active, href, className }) => {
+const SidebarItem: React.FC<SidebarItemProps> = ({ icon: Icon, label, active, href}) => {
     return (
         <Link href={href}
             className={twMerge(`flex flex-row h-auto items-center w-full 

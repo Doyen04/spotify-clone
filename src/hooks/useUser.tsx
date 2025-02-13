@@ -27,17 +27,16 @@ export const MyUserContextProvider = (props: Props) => {
     const [userDetails, setUserDetails] = useState<UserDetails | null>(null);
     const [subscription, setSubscription] = useState<Subscription | null>(null);
 
-    const getSubscription = () => {
-        return supabase.from('subscriptions')
-            .select('*, prices(*, products(*))')
-            .in('status', ['trialing', 'active'])
-            .single()
-    }
-    const getUserDetails = () => {
-        return supabase.from('users').select('*').single()
-    }
-
     useEffect(() => {
+        const getSubscription = () => {
+            return supabase.from('subscriptions')
+                .select('*, prices(*, products(*))')
+                .in('status', ['trialing', 'active'])
+                .single()
+        }
+        const getUserDetails = () => {
+            return supabase.from('users').select('*').single()
+        }
         if (user && !isLoadingData && !userDetails && !subscription) {
             setIsLoadingData(true);
             Promise.allSettled([getUserDetails(), getSubscription()]).then((results) => {
@@ -56,7 +55,7 @@ export const MyUserContextProvider = (props: Props) => {
             setUserDetails(null)
             setSubscription(null)
         }
-    }, [user, isLoadingUser])
+    }, [user, isLoadingUser, isLoadingData, userDetails, subscription, supabase])
 
     const value = {
         accessToken,
