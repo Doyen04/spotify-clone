@@ -3,11 +3,10 @@ import Header from "@/components/Header"
 import SearchContent from "@/components/SearchContent"
 import SearchInput from "@/components/SearchInput"
 
-
 interface SearchProps {
-    searchParams: {
+    searchParams: Promise<{
         title: string
-    }
+    }>
 }
 
 export const revalidate = 0
@@ -26,7 +25,7 @@ const Search = async ({ searchParams }: SearchProps) => {
                 </div>
 
             </Header>
-            <SearchContent songs={songs}/>
+            <SearchContent songs={songs} />
         </div>
     )
 }
