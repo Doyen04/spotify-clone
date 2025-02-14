@@ -1,9 +1,8 @@
 "use client"
 
-import { useUser } from "@/hooks/useUser";
+
 import { Song } from "@/types";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+
 import MediaItem from "./MediaItem";
 import LikeButton from "./LikeButton";
 import useOnPlay from "@/hooks/useOnPlay";
@@ -15,16 +14,9 @@ interface LikedContentProps {
 
 
 const LikedContent: React.FC<LikedContentProps> = ({ songs }) => {
-    const router = useRouter()
+
     const onplay = useOnPlay(songs)
 
-    const { isLoading, user } = useUser()
-
-    useEffect(() => {
-        if (!user && !isLoading) {
-            router.replace('/')
-        }
-    }, [user, isLoading, router])
 
     if (songs.length == 0) {
         return <div className="flex flex-col w-full px-6 text-neutral-400">No liked songs found</div>

@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import { FaPlay } from "react-icons/fa";
 import { twMerge } from "tailwind-merge"
 import React from "react";
+import useAuthModal from "@/hooks/useAuthModal";
+import { useUser } from "@/hooks/useUser";
 
 interface ListItemProps {
     image: string;
@@ -15,8 +17,11 @@ interface ListItemProps {
 
 const ListItem: React.FC<ListItemProps> = ({ image, name, href, className }) => {
     const router = useRouter()
+    const AuthModal = useAuthModal()
+    const { isLoading, user } = useUser()
 
     const onClick = () => {
+        if(!user && !isLoading)  AuthModal.onOpen()
         router.push(href)
     }
     // TODO MEANING GROUP

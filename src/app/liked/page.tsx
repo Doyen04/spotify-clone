@@ -4,6 +4,7 @@ import LikedContent from "@/components/LikedContent";
 import Image from "next/image";
 
 export const revalidate = 0
+//TODO: Prevent page from loading if no user sign in then search for _page why use it alse explain middleware code
 
 const LikedPage = async () => {
     const songs = await getLikedSongs()

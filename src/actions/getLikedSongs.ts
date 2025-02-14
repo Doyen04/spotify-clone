@@ -19,7 +19,6 @@ const getLikedSongs = async (): Promise<Song[]> => {
 
     if (error) {
         console.log(error);
-        
     }
 
     if(!songs ) return []
