@@ -6,12 +6,14 @@ import { useSessionContext } from "@supabase/auth-helpers-react";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
+import { twMerge } from "tailwind-merge";
 
 interface LikeButtonProps {
     songId: string;
+    className?: string
 }
 
-const LikeButton: React.FC<LikeButtonProps> = ({ songId }) => {
+const LikeButton: React.FC<LikeButtonProps> = ({ songId, className }) => {
     const router = useRouter()
     const { supabaseClient } = useSessionContext()
 
@@ -75,7 +77,7 @@ const LikeButton: React.FC<LikeButtonProps> = ({ songId }) => {
     }
 
     return (
-        <button onClick={handleClick} className="hidden md:block md:hover:opacity-75 md:transition ">
+        <button onClick={handleClick} className={twMerge(`hover:opacity-75 transition `,className)}>
             <Icon color={isLiked ? '#22c55e' : 'white'} size={25} />
         </button>
     );

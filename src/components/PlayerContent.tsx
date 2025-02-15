@@ -117,7 +117,7 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
             <div className="flex w-full justify-start">
                 <div className="flex items-center gap-x-4 ">
                     <MediaItem onClick={() => { }} data={song} />
-                    <LikeButton songId={song.id} />
+                    <LikeButton songId={song.id} className="hidden md:block" />
                 </div>
             </div>
             <div className="flex w-full flex-col justify-center items-center bg-green">
