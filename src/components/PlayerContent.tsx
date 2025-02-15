@@ -22,6 +22,7 @@ interface PlayerContentProps {
 const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
     const player = usePlayer()
     const [volume, setVolume] = useState(1)
+    const [progress, setProgress] = useState(0);
     const [isPlaying, setIsPlaying] = useState(false)
 
     const Icon = isPlaying ? BsPauseFill : BsPlayFill
@@ -48,12 +49,12 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
         player.setId(previousSong)
     }
 
-    const [play, { pause, sound }] = useSound(
+    const [play, { pause, sound, duration }] = useSound(
         songUrl,
         {
             volume: volume,
             onplay: () => setIsPlaying(true),
-            onend: ()=> {
+            onend: () => {
                 setIsPlaying(false)
                 onPlayNext()
             },
@@ -64,23 +65,52 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
             }
         })
 
-        useEffect(()=>{
-            sound?.play()
-
-            return ()=>{
-                sound?.unload( )
+    useEffect(() => {
+        sound?.play()
+        // if(duration){
+        const interval = setInterval(() => {
+            if (duration) {
+                setProgress((sound.seek() / (duration / 1000)) * 100);
             }
-        }, [sound])
-
-        const handlePlay = () => {
-            if(!isPlaying) play()
-            else pause()
+        }, 500);
+        // }
+        return () => {
+            sound?.unload()
+            clearInterval(interval)
         }
+    }, [sound, duration])
 
-        const toggleMute = () => {
-            if(volume == 0) setVolume(1)
-            else setVolume(0)
+    const handlePlay = () => {
+        if (!isPlaying) play()
+        else pause()
+    }
+
+    const toggleMute = () => {
+        if (volume == 0) setVolume(1)
+        else setVolume(0)
+    }
+
+    const handleSeek = (value: number) => {
+        if (duration) {
+            const newTime = (value / 100) * duration;
+            if (sound) {
+                sound.seek(newTime / 1000); // Convert to seconds
+                setProgress((value));
+            }
         }
+    };
+    const formatTime = (num: number) => {
+        if (num === 0 || !num) return "00:00";
+        if (duration && num) {
+            const sec = Math.floor(num / 1000) % 60
+            const min = Math.floor((num / 1000) / 60)
+            const fSec = (sec <= 9 )? `0${sec}` : `${sec}`
+            const fMin = (min <= 9 )? `0${min}` : `${min}`
+            return `${fMin}:${fSec}`
+        }
+        return "00:00";
+    }
+
     return (
 
         <div className="grid grid-cols-2 md:grid-cols-3 h-full">
@@ -92,20 +122,28 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
             </div>
             <div className="flex md:hidden col-auto w-full justify-end items-center">
                 <div onClick={handlePlay} className="h-10 w-10 flex items-center justify-center rounded-full bg-white p-1 cursor-pointer">
-                    <Icon  size={30} className="text-black" />
+                    <Icon size={30} className="text-black" />
                 </div>
             </div>
-            <div className="hidden h-full md:flex justify-center items-center w-full max-w-[722px] gap-x-6">
-                <AiFillStepBackward onClick={onPlayPrevious} size={30} className="text-neutral-400 cursor-pointer hover:text-white transition" />
-                <div onClick={handlePlay} className="h-10 w-10 flex items-center justify-center rounded-full bg-white p-1 cursor-pointer">
-                    <Icon  size={30} className="text-black" />
+            <div className="hidden md:flex w-full flex-col justify-center items-center bg-green">
+                <div className="hidden h-1/2 md:flex justify-center items-center w-full max-w-[722px] gap-x-6">
+                    <AiFillStepBackward onClick={onPlayPrevious} size={30} className="text-neutral-400 cursor-pointer hover:text-white transition" />
+                    <div onClick={handlePlay} className="h-10 w-10 flex items-center justify-center rounded-full bg-white p-1 cursor-pointer">
+                        <Icon size={30} className="text-black" />
+                    </div>
+                    <AiFillStepForward onClick={onPlayNext} size={30} className="text-neutral-400 cursor-pointer hover:text-white transition" />
                 </div>
-                <AiFillStepForward onClick={onPlayNext} size={30} className="text-neutral-400 cursor-pointer hover:text-white transition" />
+                <div className="flex w-full h-1/3 items-center gap-x-1">
+                    <p className="font-thin text-xs flex-shrink-0">{sound ? formatTime(sound.seek() * 1000) : "00:00"}</p>
+                    <Slider value={progress} max={100} step={1} onChange={(value) => handleSeek(value)} />
+                    <p className="font-thin text-xs">{formatTime(duration!)}</p>
+                </div>
             </div>
+
             <div className="hidden md:flex w-full justify-end pr-2">
                 <div className="flex items-center gap-x-2 w-[120px]">
                     <VolumeIcon size={34} className="cursor-pointer" onClick={toggleMute} />
-                    <Slider value={volume} onChange={(value)=> setVolume(value)}/>
+                    <Slider value={volume} onChange={(value) => setVolume(value)} />
                 </div>
             </div>
         </div>

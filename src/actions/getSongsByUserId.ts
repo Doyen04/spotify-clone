@@ -1,5 +1,5 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { Song } from "../../types";
+import { Song } from "@/types";
 import { cookies } from "next/headers";
 
 
@@ -19,7 +19,8 @@ const getSongsByUserId = async (): Promise<Song[]> => {
 
     const {data, error} = await supabase
     .from('songs').select('*').eq('user_id', sessionData.session?.user.id).order('created_at', {ascending: false})
-
+    console.log(data,error);
+    
     if(error){
         console.log(error.message);
     }
