@@ -1,6 +1,6 @@
 # Spotify Clone
 
-Created on: [Date]
+Created on: 21th feb 2025
 
 ## Frameworks and Libraries Used
 
