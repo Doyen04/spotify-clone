@@ -4,7 +4,7 @@ Created on: 21th feb 2025
 
 
 ## Project Screenshot
-![Project Screenshot](./src/assets/screenshot.png)
+![Project Screenshot](./public/window.svg)
 
 ## Frameworks and Libraries Used
 
