@@ -2,6 +2,10 @@
 
 Created on: 21th feb 2025
 
+
+## Project Screenshot
+![Project Screenshot](./src/assets/screenshot.png)
+
 ## Frameworks and Libraries Used
 
 - @radix-ui/react-dialog: ^1.1.6
